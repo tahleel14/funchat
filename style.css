@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #f6d365, #fda085);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+h2 {
+  color: #fff;
+}
+
+.username-box {
+  margin-bottom: 15px;
+}
+
+.chat-box {
+  width: 90%;
+  max-width: 400px;
+  height: 400px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.input-area {
+  display: flex;
+  width: 90%;
+  max-width: 400px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  outline: none;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #ff6f61;
+  color: white;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+}
+
+.message {
+  margin: 5px 0;
+  padding: 8px 12px;
+  background: #ffe4e1;
+  border-radius: 10px;
+  align-self: flex-start;
+  max-width: 80%;
+}
+
+.message.you {
+  background: #c1e1c1;
+  align-self: flex-end;
+}
+
+.dark-mode {
+  background: linear-gradient(120deg, #1e1e2f, #2a2a40);
+}
+
+.dark-mode h2, .dark-mode .username-box label {
+  color: #eee;
+}
+
+.dark-mode .chat-box {
+  background: #2f2f4f;
+  color: #eee;
+}
+
+.dark-mode .message {
+  background: #4b4b6b;
+}
+
+.dark-mode .message.you {
+  background: #6ba68b;
+}
