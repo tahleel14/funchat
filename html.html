@@ -1,177 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chat with Friends</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(120deg, #f6d365, #fda085);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    h2 {
-      color: #fff;
-    }
-
-    .username-box {
-      margin-bottom: 15px;
-    }
-
-    .chat-box {
-      width: 90%;
-      max-width: 400px;
-      height: 400px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      display: flex;
-      flex-direction: column;
-      padding: 15px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-    }
-
-    .input-area {
-      display: flex;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 10px 0 0 10px;
-      outline: none;
-    }
-
-    button {
-      padding: 10px 20px;
-      border: none;
-      background: #ff6f61;
-      color: white;
-      border-radius: 0 10px 10px 0;
-      cursor: pointer;
-    }
-
-    .message {
-      margin: 5px 0;
-      padding: 8px 12px;
-      background: #ffe4e1;
-      border-radius: 10px;
-      align-self: flex-start;
-      max-width: 80%;
-    }
-
-    .message.you {
-      background: #c1e1c1;
-      align-self: flex-end;
-    }
-
-    .dark-mode {
-      background: linear-gradient(120deg, #1e1e2f, #2a2a40);
-    }
-
-    .dark-mode h2, .dark-mode .username-box label {
-      color: #eee;
-    }
-
-    .dark-mode .chat-box {
-      background: #2f2f4f;
-      color: #eee;
-    }
-
-    .dark-mode .message {
-      background: #4b4b6b;
-    }
-
-    .dark-mode .message.you {
-      background: #6ba68b;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h2>💬 Chat Room (real-time with Firebase!)</h2>
   <div class="username-box">
     <label for="username">Your Name:</label>
-    <input type="text" id="username" placeholder="e.g., Nazira">
+    <input type="text" id="username" placeholder="e.g., Nazira" />
   </div>
 
   <div class="chat-box" id="chatBox"></div>
 
   <div class="input-area">
-    <input type="text" id="msgInput" placeholder="Type your message... 😊😂🐱">
-    <button onclick="sendMessage()">Send</button>
+    <input type="text" id="msgInput" placeholder="Type your message... 😊😂🐱" />
+    <button id="sendBtn">Send</button>
   </div>
-  <br>
-  <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+  <br />
+  <button id="toggleDarkModeBtn">🌙 Toggle Dark Mode</button>
 
   <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-
-  <script>
-    // 🔥 Replace with your Firebase config ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-    const firebaseConfig = {
-  apiKey: "AIzaSyC_WRmbWPOh_RONYIdGztRP8i0FYqlebLw",
-  authDomain: "fun-chat-b734d.firebaseapp.com",
-  projectId: "fun-chat-b734d",
-  storageBucket: "fun-chat-b734d.firebasestorage.app",
-  messagingSenderId: "429302317263",
-  appId: "1:429302317263:web:cb9b47d21b34e4df2ef7ba"
-};
-
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    const chatBox = document.getElementById("chatBox");
-    const msgInput = document.getElementById("msgInput");
-    const usernameInput = document.getElementById("username");
-
-    function sendMessage() {
-      const text = msgInput.value.trim();
-      const name = usernameInput.value.trim() || "Anonymous";
-      if (text === "") return;
-
-      const messageData = {
-        name: name,
-        text: text,
-        timestamp: Date.now()
-      };
-
-      db.ref("messages").push(messageData);
-      msgInput.value = "";
-    }
-
-    function displayMessage(data) {
-      const { name, text } = data;
-      const isYou = name === usernameInput.value.trim();
-      const msgDiv = document.createElement("div");
-      msgDiv.className = "message" + (isYou ? " you" : "");
-      msgDiv.innerHTML = `<strong>${name}:</strong> ${text}`;
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    db.ref("messages").on("child_added", snapshot => {
-      displayMessage(snapshot.val());
-    });
-
-    msgInput.addEventListener("keypress", function(e) {
-      if (e.key === "Enter") sendMessage();
-    });
-
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
